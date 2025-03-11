@@ -649,17 +649,28 @@
     </div>
 
     <script>
-        window.onload = function() {
+        // HubSpot form initialization
+        window.hsFormsOnReady = window.hsFormsOnReady || [];
+        window.hsFormsOnReady.push(() => {
             hbspt.forms.create({
                 region: "na1",
                 portalId: "242100136",
                 formId: "622116ad-545d-4df6-8e0c-73cb54605aec",
                 target: "#hubspot-form",
-                onFormSubmitted: function() {
+                css: "",
+                cssRequired: "",
+                submitButtonClass: "btn btn-primary",
+                onFormSubmit: function($form) {
+                    console.log('Form submitted');
                     showSuccessMessage();
+                },
+                onFormReady: function($form) {
+                    console.log('Form ready');
                 }
             });
+        });
 
+        window.onload = function() {
             // Progress bar
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;

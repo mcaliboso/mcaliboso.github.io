@@ -7,7 +7,13 @@
     <!-- HubSpot tracking code -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/242100136.js"></script>
     <!-- HubSpot Forms -->
-    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+    <script>
+        window.hsFormsOnReady = window.hsFormsOnReady || [];
+        window.hsFormsOnReady.push(() => {
+            console.log('HubSpot forms script loaded');
+        });
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -813,9 +819,27 @@
     </a>
 
     <script>
-        window.onload = function() {
-            // Existing HubSpot form...
+        // HubSpot form initialization
+        window.hsFormsOnReady = window.hsFormsOnReady || [];
+        window.hsFormsOnReady.push(() => {
+            hbspt.forms.create({
+                region: "na1",
+                portalId: "242100136",
+                formId: "622116ad-545d-4df6-8e0c-73cb54605aec",
+                target: "#hubspot-form",
+                css: "",
+                cssRequired: "",
+                submitButtonClass: "btn btn-primary",
+                onFormSubmit: function($form) {
+                    console.log('Form submitted');
+                },
+                onFormReady: function($form) {
+                    console.log('Form ready');
+                }
+            });
+        });
 
+        window.onload = function() {
             // Progress bar
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
