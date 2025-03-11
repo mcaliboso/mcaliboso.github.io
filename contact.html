@@ -276,49 +276,19 @@
             padding: 40px;
             border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            overflow: hidden;
             min-height: 400px;
             z-index: 1;
-            backdrop-filter: blur(10px);
         }
 
-        .form-container:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: linear-gradient(45deg, rgba(255,107,0,0.15), transparent, rgba(255,107,0,0.15));
-            background-size: 200% 200%;
-            animation: gradientFlow 5s ease infinite;
-            pointer-events: none;
+        /* Remove custom HubSpot form styles to use default */
+        #hubspot-form {
+            position: relative;
+            z-index: 2;
         }
 
-        .form-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255,107,0,0.1);
-        }
-
-        .form-container:hover:before {
-            opacity: 1;
-        }
-
-        .form-container:after {
-            content: 'Loading form...';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #FF6B00;
-            font-size: 16px;
-            opacity: 0.8;
-        }
-
-        .form-container.form-loaded:after {
-            display: none;
+        #hubspot-form form {
+            margin: 0;
         }
 
         /* Stats Section */
@@ -577,84 +547,6 @@
         .parallax-section {
             transform: translateY(var(--scroll-offset, 0));
             transition: transform 0.1s ease-out;
-        }
-
-        /* HubSpot Form Styles */
-        #hubspot-form {
-            position: relative;
-            z-index: 2;
-        }
-
-        #hubspot-form form {
-            margin: 0;
-        }
-
-        #hubspot-form .hs-form-field {
-            margin-bottom: 20px;
-        }
-
-        #hubspot-form .hs-input {
-            width: 100% !important;
-            padding: 12px !important;
-            border: 1px solid rgba(255,255,255,0.2) !important;
-            background: rgba(255,255,255,0.9) !important;
-            color: #000 !important;
-            border-radius: 4px !important;
-            font-size: 16px !important;
-            transition: all 0.3s ease !important;
-        }
-
-        #hubspot-form .hs-input:focus {
-            outline: none !important;
-            border-color: #FF6B00 !important;
-            box-shadow: 0 0 0 2px rgba(255,107,0,0.2) !important;
-        }
-
-        #hubspot-form .hs-button {
-            background: #FF6B00 !important;
-            color: white !important;
-            padding: 15px 30px !important;
-            border: none !important;
-            border-radius: 4px !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            width: 100% !important;
-            margin-top: 10px !important;
-        }
-
-        #hubspot-form .hs-button:hover {
-            background: #ff8533 !important;
-            transform: translateY(-2px) !important;
-        }
-
-        #hubspot-form label {
-            color: white !important;
-            margin-bottom: 8px !important;
-            display: block !important;
-            font-weight: 500 !important;
-        }
-
-        #hubspot-form .hs-error-msg {
-            color: #ff4444 !important;
-            margin-top: 5px !important;
-            font-size: 14px !important;
-        }
-
-        #hubspot-form .hs-form-required {
-            color: #FF6B00 !important;
-            margin-left: 4px !important;
-        }
-
-        #hubspot-form .submitted-message {
-            color: white !important;
-            text-align: center !important;
-            padding: 20px !important;
-            background: rgba(255,107,0,0.1) !important;
-            border-radius: 4px !important;
-            border: 1px solid rgba(255,107,0,0.2) !important;
         }
 
         /* Select dropdown styles */
