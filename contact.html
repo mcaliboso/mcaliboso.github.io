@@ -279,6 +279,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            min-height: 400px;
+            z-index: 1;
         }
 
         .form-container:before {
@@ -300,6 +302,21 @@
 
         .form-container:hover:before {
             opacity: 1;
+        }
+
+        .form-container:after {
+            content: 'Loading form...';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FF6B00;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .form-container.form-loaded:after {
+            display: none;
         }
 
         /* Stats Section */
@@ -551,6 +568,60 @@
             transform: translateY(var(--scroll-offset, 0));
             transition: transform 0.1s ease-out;
         }
+
+        /* HubSpot Form Styles */
+        #hubspot-form {
+            position: relative;
+            z-index: 2;
+        }
+
+        #hubspot-form form {
+            margin: 0;
+        }
+
+        #hubspot-form .hs-form-field {
+            margin-bottom: 20px;
+        }
+
+        #hubspot-form .hs-input {
+            width: 100% !important;
+            padding: 12px !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            background: rgba(255,255,255,0.05) !important;
+            color: white !important;
+            border-radius: 4px !important;
+            font-size: 16px !important;
+        }
+
+        #hubspot-form .hs-button {
+            background: #FF6B00 !important;
+            color: white !important;
+            padding: 15px 30px !important;
+            border: none !important;
+            border-radius: 4px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            width: 100% !important;
+        }
+
+        #hubspot-form .hs-button:hover {
+            background: #ff8533 !important;
+            transform: translateY(-2px) !important;
+        }
+
+        #hubspot-form label {
+            color: white !important;
+            margin-bottom: 8px !important;
+            display: block !important;
+        }
+
+        #hubspot-form .hs-error-msg {
+            color: #ff4444 !important;
+            margin-top: 5px !important;
+        }
     </style>
 </head>
 <body>
@@ -649,33 +720,69 @@
     </div>
 
     <script>
-        // Wait for HubSpot script to load
-        window.addEventListener('load', function() {
-            console.log('Window loaded, checking for HubSpot...');
+        // Debug function
+        function debugHubSpot() {
+            console.log('Debugging HubSpot:');
+            console.log('- window.hbspt exists:', !!window.hbspt);
+            console.log('- form container exists:', !!document.getElementById('hubspot-form'));
+            console.log('- portal ID:', "242100136");
+            console.log('- form ID:', "622116ad-545d-4df6-8e0c-73cb54605aec");
+        }
+
+        // Initialize form with retries
+        function initForm(retries = 0) {
+            console.log(`Attempting to initialize form (attempt ${retries + 1})`);
             
-            function initForm() {
-                if (window.hbspt) {
-                    console.log('HubSpot loaded, creating form...');
+            if (retries >= 10) {
+                console.error('Failed to initialize form after 10 attempts');
+                return;
+            }
+
+            if (window.hbspt) {
+                console.log('HubSpot loaded, creating form...');
+                try {
                     hbspt.forms.create({
                         region: "na1",
                         portalId: "242100136",
                         formId: "622116ad-545d-4df6-8e0c-73cb54605aec",
                         target: "#hubspot-form",
+                        onFormReady: function($form) {
+                            console.log('Form ready');
+                            document.querySelector('.form-container').classList.add('form-loaded');
+                        },
                         onFormSubmit: function($form) {
                             console.log('Form submitted');
                             showSuccessMessage();
                         },
-                        onFormReady: function($form) {
-                            console.log('Form ready');
+                        onFormSubmitted: function($form) {
+                            console.log('Form submission completed');
                         }
                     });
-                } else {
-                    console.log('HubSpot not loaded yet, retrying in 500ms...');
-                    setTimeout(initForm, 500);
+                } catch (error) {
+                    console.error('Error creating form:', error);
+                    setTimeout(() => initForm(retries + 1), 1000);
                 }
+            } else {
+                console.log('HubSpot not loaded yet, retrying...');
+                setTimeout(() => initForm(retries + 1), 1000);
             }
+        }
 
+        // Start initialization when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, waiting for HubSpot...');
+            debugHubSpot();
             initForm();
+        });
+
+        // Backup initialization
+        window.addEventListener('load', function() {
+            console.log('Window loaded, checking if form exists...');
+            if (!document.querySelector('.form-loaded')) {
+                console.log('Form not loaded yet, retrying...');
+                debugHubSpot();
+                initForm();
+            }
         });
 
         window.onload = function() {
