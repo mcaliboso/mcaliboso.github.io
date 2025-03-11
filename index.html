@@ -473,187 +473,178 @@
 
         /* Enhanced Hero Section */
         .hero {
-            background: linear-gradient(-45deg, #000, #111, #1a0f00, #1a0800);
-            background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero h1 {
-            animation: slideIn 1s ease;
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, rgba(0,0,0,0) 70%);
+            animation: rotate 30s linear infinite;
         }
 
-        .hero p {
-            animation: slideIn 1s ease 0.2s backwards;
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
+        .hero h1 .highlight {
+            background: linear-gradient(90deg, #FF6B00, #FF8533, #FF6B00);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+
+        /* Enhanced Feature Cards */
+        .feature-card {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(255,107,0,0.2);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,107,0,0.1), transparent);
+            transform: translateY(-100%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Enhanced Stats Section */
+        .stat-number {
+            display: inline-block;
+            position: relative;
+        }
+
+        .stat-number::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #FF6B00;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .stat-number::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Enhanced Testimonial Cards */
+        .testimonial-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 1;
+            animation: rotate 20s linear infinite;
+        }
+
+        /* Enhanced Pricing Cards */
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FF6B00, #FF8533);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Interactive Elements */
         .btn-primary {
             position: relative;
             overflow: hidden;
         }
 
-        .btn-primary:after {
+        .btn-primary::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: -100%;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transition: 0.5s;
         }
 
-        .btn-primary:hover:after {
+        .btn-primary:hover::before {
             left: 100%;
         }
 
-        /* Enhanced Features Section */
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: #1a1a1a;
+        /* Floating Elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
 
-        /* Enhanced Testimonials */
-        .testimonial-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: #1a1a1a;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
         }
 
-        .testimonial-card img {
-            transition: all 0.3s ease;
-        }
-
-        .testimonial-card:hover img {
-            transform: scale(1.1);
-            border-color: #ff8533;
-        }
-
-        /* Enhanced Pricing Cards */
-        .pricing-card:hover {
-            transform: translateY(-15px);
-            background: #1a1a1a;
-        }
-
-        .pricing-card:hover .price {
-            color: #ff8533;
-            animation: pulse 1s infinite;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: #FF6B00;
-            z-index: 1001;
-            transition: width 0.3s ease;
-        }
-
-        /* Floating CTA */
-        .floating-cta {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #FF6B00;
+        /* Success Message Enhancement */
+        .success-message {
+            background: linear-gradient(45deg, #00c853, #64dd17);
+            border-radius: 8px;
+            padding: 20px;
             color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            transform: translateY(0);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255,107,0,0.3);
-            z-index: 1000;
-            display: none;
+            box-shadow: 0 10px 30px rgba(0,200,0,0.3);
+            transform: translateX(100%);
+            animation: slideIn 0.5s ease-out forwards;
         }
 
-        .floating-cta:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255,107,0,0.4);
-        }
-
-        /* Mobile Enhancements */
-        @media (max-width: 768px) {
-            .floating-cta {
-                bottom: 20px;
-                right: 20px;
-                padding: 12px 20px;
-            }
-        }
-
-        /* Add these new animation keyframes after your existing keyframes */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideFromRight {
-            from {
-                opacity: 0;
-                transform: translateX(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Add these new classes */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stagger-animation {
-            transition-delay: var(--stagger-delay);
-        }
-
-        .parallax-section {
-            transform: translateY(var(--scroll-offset, 0));
-            transition: transform 0.1s ease-out;
-        }
-
-        /* Modify your existing sections to add animation classes */
-        .hero {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero h1, .hero p, .hero .btn {
-            opacity: 0;
-            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .hero p {
-            animation-delay: 0.2s;
-        }
-
-        .hero .btn {
-            animation-delay: 0.4s;
+        @keyframes slideIn {
+            to { transform: translateX(0); }
         }
     </style>
 </head>
@@ -894,64 +885,114 @@
             });
 
             // Enhanced scroll animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
+            const cardObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '0px'
             };
 
-            const handleIntersection = (entries, observer) => {
-                entries.forEach((entry, index) => {
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const element = entry.target;
-                        const delay = element.dataset.staggerDelay || 0;
+                        entry.target.classList.add('animated');
                         
-                        element.style.setProperty('--stagger-delay', `${delay * 0.2}s`);
-                        element.classList.add('animated');
-                        
-                        // Only unobserve if animation should happen once
-                        if (!element.dataset.repeat) {
-                            observer.unobserve(element);
+                        if (entry.target.classList.contains('stat-number')) {
+                            animateNumber(entry.target);
                         }
                     }
                 });
-            };
+            }, cardObserverOptions);
 
-            const observer = new IntersectionObserver(handleIntersection, observerOptions);
+            // Animate numbers
+            function animateNumber(element) {
+                const final = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                let current = 0;
+                const duration = 2000; // 2 seconds
+                const increment = final / (duration / 16); // 60fps
 
-            // Observe all elements that should animate
-            document.querySelectorAll('.animate-on-scroll').forEach((element, index) => {
-                element.dataset.staggerDelay = index;
-                observer.observe(element);
+                const animate = () => {
+                    current += increment;
+                    if (current < final) {
+                        element.textContent = Math.round(current).toLocaleString() + (element.textContent.includes('+') ? '+' : '');
+                        requestAnimationFrame(animate);
+                    } else {
+                        element.textContent = final.toLocaleString() + (element.textContent.includes('+') ? '+' : '');
+                    }
+                };
+
+                animate();
+            }
+
+            // Observe elements for animation
+            document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .stat-number').forEach(el => {
+                cardObserver.observe(el);
             });
 
-            // Parallax effect
-            let parallaxSections = document.querySelectorAll('.parallax-section');
-            
-            window.addEventListener('scroll', () => {
-                parallaxSections.forEach(section => {
-                    const scrolled = window.pageYOffset;
-                    const rate = scrolled * -0.3;
-                    section.style.setProperty('--scroll-offset', `${rate}px`);
+            // Add particle effects
+            function createParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: #FF6B00;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 1000;
+                `;
+                document.body.appendChild(particle);
+
+                const animation = particle.animate([
+                    {
+                        transform: `translate(${x}px, ${y}px)`,
+                        opacity: 1
+                    },
+                    {
+                        transform: `translate(${x + (Math.random() - 0.5) * 200}px, ${y - 200}px)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
+
+                animation.onfinish = () => particle.remove();
+            }
+
+            // Add particle effects on button hover
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.addEventListener('mouseenter', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    for(let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            createParticle(rect.left + rect.width / 2, rect.bottom);
+                        }, i * 100);
+                    }
                 });
             });
 
-            // Add animation classes to elements
-            document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(
-                (element, index) => {
-                    element.classList.add('animate-on-scroll', 'stagger-animation');
+            // Enhanced success message
+            function showSuccessMessage() {
+                const message = document.querySelector('.success-message');
+                message.style.display = 'block';
+                message.style.animation = 'slideIn 0.5s ease-out forwards';
+                
+                // Create celebration particles
+                for(let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createParticle(
+                            window.innerWidth - 100,
+                            50 + Math.random() * 50
+                        );
+                    }, i * 100);
                 }
-            );
 
-            document.querySelectorAll('.stat-card').forEach(
-                (element, index) => {
-                    element.classList.add('animate-on-scroll', 'stagger-animation');
-                }
-            );
-
-            // Add parallax to sections
-            document.querySelector('.hero').classList.add('parallax-section');
-            document.querySelector('.results').classList.add('parallax-section');
+                setTimeout(() => {
+                    message.style.animation = 'slideIn 0.5s ease-out reverse forwards';
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                    }, 500);
+                }, 4500);
+            }
         };
     </script>
 </body>
