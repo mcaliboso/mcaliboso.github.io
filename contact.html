@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Scale Your Course Business</title>
+    <!-- HubSpot tracking code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/242100136.js"></script>
+    <!-- HubSpot Forms -->
+    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #fff;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: #000;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Contact Section */
+        .contact-hero {
+            padding: 200px 0 100px;
+            background: #000;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .contact-hero .highlight {
+            color: #FF6B00;
+        }
+
+        .contact-hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 80px 0;
+        }
+
+        .contact-info {
+            padding-right: 40px;
+        }
+
+        .contact-info h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #FF6B00;
+        }
+
+        .contact-info p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .contact-method {
+            margin-bottom: 30px;
+        }
+
+        .contact-method h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #FF6B00;
+        }
+
+        .contact-method p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-container {
+            background: #111;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: white;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .contact-hero h1 {
+                font-size: 36px;
+            }
+
+            .contact-hero p {
+                font-size: 20px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-info {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Acquisition.com</a>
+            <div class="nav-links">
+                <a href="index.html#results">Results</a>
+                <a href="index.html#testimonials">Case Studies</a>
+                <a href="index.html#pricing">Investment</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Ready to <span class="highlight">Scale Your Course Business?</span></h1>
+            <p>Schedule your free strategy session and discover how to 10x your course revenue</p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-info">
+                <h2>Let's Connect</h2>
+                <p>We're excited to learn about your course business and show you how our proven system can help you scale to 7-figures and beyond.</p>
+                
+                <div class="contact-method">
+                    <h3>Email</h3>
+                    <p>apply@acquisition.com</p>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>Location</h3>
+                    <p>Miami, FL</p>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>Response Time</h3>
+                    <p>We typically respond within 24 hours</p>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div id="hubspot-form"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2024 Acquisition.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            hbspt.forms.create({
+                region: "na1",
+                portalId: "242100136",
+                formId: "de2b86e7-830a-40a2-8125-0b803aa849ac",
+                target: "#hubspot-form"
+            });
+        };
+    </script>
+</body>
+</html> 
