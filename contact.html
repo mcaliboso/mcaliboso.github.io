@@ -126,6 +126,11 @@
             to { transform: rotate(360deg); }
         }
 
+        .contact-hero h1, .contact-hero p {
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
         .contact-hero h1 {
             font-size: 48px;
             margin-bottom: 30px;
@@ -134,7 +139,7 @@
             text-transform: uppercase;
             letter-spacing: -1px;
             position: relative;
-            animation: slideIn 1s ease;
+            animation-delay: 0.2s;
         }
 
         .contact-hero .highlight {
@@ -168,7 +173,7 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            animation: slideIn 1s ease 0.2s backwards;
+            animation-delay: 0.4s;
         }
 
         /* Contact Content Section */
@@ -502,6 +507,50 @@
                 padding: 12px 20px;
             }
         }
+
+        /* Add these new animation keyframes after your existing keyframes */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Add these new classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-animation {
+            transition-delay: var(--stagger-delay);
+        }
+
+        .parallax-section {
+            transform: translateY(var(--scroll-offset, 0));
+            transition: transform 0.1s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -650,6 +699,58 @@
 
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll(); // Initial check
+
+            // Enhanced scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const handleIntersection = (entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const delay = element.dataset.staggerDelay || 0;
+                        
+                        element.style.setProperty('--stagger-delay', `${delay * 0.2}s`);
+                        element.classList.add('animated');
+                        
+                        if (!element.dataset.repeat) {
+                            observer.unobserve(element);
+                        }
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+            // Observe all elements that should animate
+            document.querySelectorAll('.animate-on-scroll').forEach((element, index) => {
+                element.dataset.staggerDelay = index;
+                observer.observe(element);
+            });
+
+            // Add animation classes to elements
+            document.querySelectorAll('.contact-method, .stat-item, .form-container').forEach(
+                (element, index) => {
+                    element.classList.add('animate-on-scroll', 'stagger-animation');
+                }
+            );
+
+            // Add parallax to hero section
+            document.querySelector('.contact-hero').classList.add('parallax-section');
+
+            // Parallax effect
+            let parallaxSections = document.querySelectorAll('.parallax-section');
+            
+            window.addEventListener('scroll', () => {
+                parallaxSections.forEach(section => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.3;
+                    section.style.setProperty('--scroll-offset', `${rate}px`);
+                });
+            });
         };
     </script>
 </body>

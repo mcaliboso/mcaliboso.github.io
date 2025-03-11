@@ -77,6 +77,8 @@
             color: white;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
         }
 
         .hero h1 {
@@ -86,6 +88,8 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: -1px;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .hero .highlight {
@@ -101,6 +105,9 @@
             margin-left: auto;
             margin-right: auto;
             font-weight: 500;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
         }
 
         /* Buttons */
@@ -114,6 +121,9 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 16px;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.4s;
         }
 
         .btn-primary {
@@ -165,6 +175,10 @@
             padding: 40px;
             border-radius: 4px;
             border: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease forwards;
         }
 
         .feature-card h3 {
@@ -192,6 +206,10 @@
 
         .stat-card {
             padding: 30px;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease forwards;
         }
 
         .stat-number {
@@ -226,6 +244,10 @@
             padding: 40px;
             border-radius: 4px;
             border: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease forwards;
         }
 
         .testimonial-card img {
@@ -268,6 +290,10 @@
             border-radius: 4px;
             border: 1px solid rgba(255,255,255,0.1);
             text-align: center;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease forwards;
         }
 
         .price {
@@ -451,21 +477,12 @@
         }
 
         /* Enhanced Features Section */
-        .feature-card {
-            transform: translateY(0);
-            transition: all 0.3s ease;
-        }
-
         .feature-card:hover {
             transform: translateY(-10px);
             background: #1a1a1a;
         }
 
         /* Enhanced Testimonials */
-        .testimonial-card {
-            transition: all 0.3s ease;
-        }
-
         .testimonial-card:hover {
             transform: translateY(-10px) scale(1.02);
             background: #1a1a1a;
@@ -481,17 +498,9 @@
         }
 
         /* Enhanced Pricing Cards */
-        .pricing-card {
-            transition: all 0.3s ease;
-        }
-
         .pricing-card:hover {
             transform: translateY(-15px);
             background: #1a1a1a;
-        }
-
-        .price {
-            transition: all 0.3s ease;
         }
 
         .pricing-card:hover .price {
@@ -541,6 +550,80 @@
                 right: 20px;
                 padding: 12px 20px;
             }
+        }
+
+        /* Add these new animation keyframes after your existing keyframes */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Add these new classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-animation {
+            transition-delay: var(--stagger-delay);
+        }
+
+        .parallax-section {
+            transform: translateY(var(--scroll-offset, 0));
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Modify your existing sections to add animation classes */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1, .hero p, .hero .btn {
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero p {
+            animation-delay: 0.2s;
+        }
+
+        .hero .btn {
+            animation-delay: 0.4s;
         }
     </style>
 </head>
@@ -780,6 +863,66 @@
                     }
                 });
             });
+
+            // Enhanced scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const handleIntersection = (entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const delay = element.dataset.staggerDelay || 0;
+                        
+                        element.style.setProperty('--stagger-delay', `${delay * 0.2}s`);
+                        element.classList.add('animated');
+                        
+                        // Only unobserve if animation should happen once
+                        if (!element.dataset.repeat) {
+                            observer.unobserve(element);
+                        }
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+            // Observe all elements that should animate
+            document.querySelectorAll('.animate-on-scroll').forEach((element, index) => {
+                element.dataset.staggerDelay = index;
+                observer.observe(element);
+            });
+
+            // Parallax effect
+            let parallaxSections = document.querySelectorAll('.parallax-section');
+            
+            window.addEventListener('scroll', () => {
+                parallaxSections.forEach(section => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.3;
+                    section.style.setProperty('--scroll-offset', `${rate}px`);
+                });
+            });
+
+            // Add animation classes to elements
+            document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card').forEach(
+                (element, index) => {
+                    element.classList.add('animate-on-scroll', 'stagger-animation');
+                }
+            );
+
+            document.querySelectorAll('.stat-card').forEach(
+                (element, index) => {
+                    element.classList.add('animate-on-scroll', 'stagger-animation');
+                }
+            );
+
+            // Add parallax to sections
+            document.querySelector('.hero').classList.add('parallax-section');
+            document.querySelector('.results').classList.add('parallax-section');
         };
     </script>
 </body>
