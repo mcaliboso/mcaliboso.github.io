@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter | Scale Your Course Business</title>
+    <!-- HubSpot tracking code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/242100136.js"></script>
+    <!-- HubSpot Forms -->
+    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #fff;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(0,0,0,0.95);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #FF6B00;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FF6B00;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Newsletter Hero Section */
+        .newsletter-hero {
+            padding: 200px 0 100px;
+            background: linear-gradient(-45deg, #000, #111, #1a0f00, #1a0800);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-hero h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .newsletter-hero .highlight {
+            color: #FF6B00;
+            position: relative;
+            display: inline-block;
+        }
+
+        .newsletter-hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Newsletter Content */
+        .newsletter-content {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .benefit-item {
+            padding: 30px;
+            background: rgba(255,107,0,0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255,107,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,107,0,0.1);
+        }
+
+        .benefit-item h3 {
+            color: #FF6B00;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .benefit-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+        }
+
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(17, 17, 17, 0.95);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #FF6B00;
+            font-size: 32px;
+        }
+
+        #hubspot-form {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            background: #111;
+            color: white;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 200, 0, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .newsletter-hero h1 {
+                font-size: 36px;
+            }
+
+            .newsletter-hero p {
+                font-size: 20px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Acquisition.com</a>
+            <div class="nav-links">
+                <a href="index.html#results">Results</a>
+                <a href="index.html#testimonials">Case Studies</a>
+                <a href="index.html#pricing">Investment</a>
+                <a href="contact.html">Contact</a>
+                <a href="newsletter.html">Newsletter</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="newsletter-hero">
+        <div class="container">
+            <h1>Stay Ahead with Our <span class="highlight">Course Business Insights</span></h1>
+            <p>Get weekly tips, strategies, and insider knowledge to scale your course business</p>
+        </div>
+    </section>
+
+    <section class="newsletter-content">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h3>Expert Insights</h3>
+                    <p>Get exclusive strategies and tips from industry leaders in course creation and scaling</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Growth Tactics</h3>
+                    <p>Learn proven methods to increase your course enrollment and revenue</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>Industry Updates</h3>
+                    <p>Stay informed about the latest trends and changes in the online education space</p>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Join Our Newsletter</h2>
+                <div id="hubspot-form"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2024 Acquisition.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Message -->
+    <div class="success-message">
+        Thanks for subscribing! Check your inbox for confirmation.
+    </div>
+
+    <script>
+        function debugHubSpot() {
+            console.log('Debugging HubSpot:');
+            console.log('- window.hbspt exists:', !!window.hbspt);
+            console.log('- form container exists:', !!document.getElementById('hubspot-form'));
+        }
+
+        function initForm(retries = 0) {
+            console.log(`Attempting to initialize form (attempt ${retries + 1})`);
+            
+            if (retries >= 10) {
+                console.error('Failed to initialize form after 10 attempts');
+                return;
+            }
+
+            if (window.hbspt) {
+                console.log('HubSpot loaded, creating form...');
+                try {
+                    hbspt.forms.create({
+                        region: "na1",
+                        portalId: "242100136",
+                        formId: "622116ad-545d-4df6-8e0c-73cb54605aec", // You'll need to replace this with your newsletter form ID
+                        target: "#hubspot-form",
+                        onFormReady: function($form) {
+                            console.log('Form ready');
+                        },
+                        onFormSubmit: function($form) {
+                            console.log('Form submitted');
+                            showSuccessMessage();
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error creating form:', error);
+                    setTimeout(() => initForm(retries + 1), 1000);
+                }
+            } else {
+                console.log('HubSpot not loaded yet, retrying...');
+                setTimeout(() => initForm(retries + 1), 1000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            debugHubSpot();
+            initForm();
+        });
+
+        function showSuccessMessage() {
+            const message = document.querySelector('.success-message');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html> 
