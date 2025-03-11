@@ -649,25 +649,33 @@
     </div>
 
     <script>
-        // HubSpot form initialization
-        window.hsFormsOnReady = window.hsFormsOnReady || [];
-        window.hsFormsOnReady.push(() => {
-            hbspt.forms.create({
-                region: "na1",
-                portalId: "242100136",
-                formId: "622116ad-545d-4df6-8e0c-73cb54605aec",
-                target: "#hubspot-form",
-                css: "",
-                cssRequired: "",
-                submitButtonClass: "btn btn-primary",
-                onFormSubmit: function($form) {
-                    console.log('Form submitted');
-                    showSuccessMessage();
-                },
-                onFormReady: function($form) {
-                    console.log('Form ready');
+        // Wait for HubSpot script to load
+        window.addEventListener('load', function() {
+            console.log('Window loaded, checking for HubSpot...');
+            
+            function initForm() {
+                if (window.hbspt) {
+                    console.log('HubSpot loaded, creating form...');
+                    hbspt.forms.create({
+                        region: "na1",
+                        portalId: "242100136",
+                        formId: "622116ad-545d-4df6-8e0c-73cb54605aec",
+                        target: "#hubspot-form",
+                        onFormSubmit: function($form) {
+                            console.log('Form submitted');
+                            showSuccessMessage();
+                        },
+                        onFormReady: function($form) {
+                            console.log('Form ready');
+                        }
+                    });
+                } else {
+                    console.log('HubSpot not loaded yet, retrying in 500ms...');
+                    setTimeout(initForm, 500);
                 }
-            });
+            }
+
+            initForm();
         });
 
         window.onload = function() {
