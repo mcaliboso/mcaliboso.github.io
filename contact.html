@@ -96,10 +96,18 @@
         /* Contact Hero Section */
         .contact-hero {
             padding: 200px 0 100px;
-            background: linear-gradient(45deg, #000, #111);
+            background: linear-gradient(-45deg, #000, #111, #1a0f00, #1a0800);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
             text-align: center;
             position: relative;
             overflow: hidden;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .contact-hero:before {
@@ -126,6 +134,7 @@
             text-transform: uppercase;
             letter-spacing: -1px;
             position: relative;
+            animation: slideIn 1s ease;
         }
 
         .contact-hero .highlight {
@@ -159,6 +168,7 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            animation: slideIn 1s ease 0.2s backwards;
         }
 
         /* Contact Content Section */
@@ -221,6 +231,8 @@
             border: 1px solid rgba(255,107,0,0.1);
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .contact-method:hover {
@@ -271,9 +283,9 @@
             height: 100%;
             top: 0;
             left: 0;
-            background: linear-gradient(45deg, rgba(255,107,0,0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            background: linear-gradient(45deg, rgba(255,107,0,0.15), transparent, rgba(255,107,0,0.15));
+            background-size: 200% 200%;
+            animation: gradientFlow 5s ease infinite;
         }
 
         .form-container:hover {
@@ -291,6 +303,8 @@
             background: #111;
             margin-top: -40px;
             margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
         }
 
         .stats-grid {
@@ -302,6 +316,18 @@
 
         .stat-item {
             padding: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-item:hover .stat-number {
+            animation: pulse 1s infinite;
+            color: #FF8533;
         }
 
         .stat-number {
@@ -328,6 +354,34 @@
             }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
         /* Footer */
         footer {
             background: #111;
@@ -347,6 +401,67 @@
             opacity: 1;
         }
 
+        /* Live Chat Button */
+        .live-chat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #FF6B00;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255,107,0,0.3);
+        }
+
+        .live-chat-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255,107,0,0.4);
+        }
+
+        .live-chat-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #FF6B00;
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Success Message Animation */
+        @keyframes successPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 200, 0, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            animation: successPop 0.5s ease;
+            z-index: 1000;
+        }
+
+        /* Mobile Enhancements */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -380,10 +495,19 @@
             .stat-item {
                 padding: 15px;
             }
+
+            .live-chat-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
     <nav>
         <div class="container nav-content">
             <a href="index.html" class="logo">Acquisition.com</a>
@@ -462,38 +586,70 @@
         </div>
     </footer>
 
+    <!-- Live Chat Button -->
+    <div class="live-chat-btn">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        Chat with Us
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message">
+        Thanks for reaching out! We'll be in touch shortly.
+    </div>
+
     <script>
         window.onload = function() {
             hbspt.forms.create({
                 region: "na1",
                 portalId: "242100136",
                 formId: "622116ad-545d-4df6-8e0c-73cb54605aec",
-                target: "#hubspot-form"
+                target: "#hubspot-form",
+                onFormSubmitted: function() {
+                    showSuccessMessage();
+                }
             });
 
-            // Animate stats on scroll
-            const stats = document.querySelectorAll('.stat-number');
-            let animated = false;
+            // Progress bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.querySelector('.progress-bar').style.width = scrolled + '%';
+            });
 
-            function animateStats() {
-                const triggerBottom = window.innerHeight * 0.8;
+            // Live chat button click
+            document.querySelector('.live-chat-btn').addEventListener('click', () => {
+                // Initialize your chat solution here
+                alert('Chat feature coming soon!');
+            });
 
-                stats.forEach((stat, index) => {
-                    const statTop = stat.getBoundingClientRect().top;
-
-                    if (statTop < triggerBottom && !animated) {
-                        stat.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.2}s`;
-                    }
-                });
-
-                if (stats[0].getBoundingClientRect().top < triggerBottom) {
-                    animated = true;
-                    window.removeEventListener('scroll', animateStats);
-                }
+            // Success message
+            function showSuccessMessage() {
+                const message = document.querySelector('.success-message');
+                message.style.display = 'block';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 5000);
             }
 
-            window.addEventListener('scroll', animateStats);
-            animateStats(); // Initial check
+            // Animate elements on scroll
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.contact-method, .stat-item');
+                elements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight) && (elementBottom >= 0);
+                    
+                    if (isVisible) {
+                        element.style.animation = 'slideIn 0.5s ease forwards';
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Initial check
         };
     </script>
 </body>
