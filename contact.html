@@ -589,6 +589,21 @@
             height: 18px !important;
             margin: 0 !important;
         }
+
+        /* Copy Success Message */
+        .copy-success {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,107,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            animation: successPop 0.5s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(255,107,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -648,7 +663,7 @@
                         <p>15-30 minute consultation</p>
                     </div>
 
-                    <div class="contact-method">
+                    <div class="contact-method" onclick="copyEmail()">
                         <h3>Email Us</h3>
                         <p>apply@acquisition.com</p>
                         <p>We respond to all inquiries within 24 hours</p>
@@ -687,7 +702,26 @@
         Thanks for reaching out! We'll be in touch shortly.
     </div>
 
+    <!-- Copy Success Message -->
+    <div class="copy-success">
+        Email copied to clipboard!
+    </div>
+
     <script>
+        // Copy email function
+        function copyEmail() {
+            const email = 'apply@acquisition.com';
+            navigator.clipboard.writeText(email).then(() => {
+                const message = document.querySelector('.copy-success');
+                message.style.display = 'block';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy email:', err);
+            });
+        }
+
         // Debug function
         function debugHubSpot() {
             console.log('Debugging HubSpot:');
