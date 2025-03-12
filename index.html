@@ -451,6 +451,29 @@
             background: #000;
         }
 
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,107,0,0.2);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover {
+            border-color: #FF6B00;
+            box-shadow: 0 30px 60px rgba(255,107,0,0.2);
+        }
+
+        #hubspot-form {
+            position: relative;
+            z-index: 2;
+        }
+
         /* Footer */
         footer {
             background: #111;

@@ -157,10 +157,23 @@
             background: rgba(17, 17, 17, 0.95);
             padding: 40px;
             border-radius: 12px;
-            border: 1px solid rgba(255,107,0,0.1);
+            border: 1px solid rgba(255,107,0,0.2);
             backdrop-filter: blur(10px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             margin-top: 40px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-container:hover {
+            border-color: #FF6B00;
+            box-shadow: 0 30px 60px rgba(255,107,0,0.2);
+        }
+
+        #hubspot-form {
+            position: relative;
+            z-index: 2;
         }
 
         /* HubSpot Form Styling */
