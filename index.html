@@ -796,6 +796,100 @@
                 margin: 10px 0;
             }
         }
+
+        /* New Dynamic Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* Parallax Elements */
+        .parallax {
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.3, 1);
+            will-change: transform;
+        }
+
+        /* Interactive Card Hover */
+        .feature-card {
+            transition: transform 0.5s cubic-bezier(0.2, 0, 0.3, 1), box-shadow 0.5s ease;
+            perspective: 1000px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255,107,0,0.2);
+        }
+
+        /* Magnetic Button Effect */
+        .btn-primary {
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        /* Glowing Border Animation */
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FF6B00, #FF8533, #FF6B00);
+            background-size: 200% 200%;
+            animation: gradientBorder 3s linear infinite;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pricing-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Elements Animation */
+        .float-element {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Text Reveal Animation */
+        .text-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.2, 0, 0.3, 1);
+        }
+
+        .text-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -804,40 +898,40 @@
 
     <nav>
         <div class="container nav-content">
-            <div class="logo">Acquisition.com</div>
+            <div class="logo parallax">Acquisition.com</div>
             <div class="nav-links">
-                <a href="#results">Results</a>
-                <a href="#testimonials">Case Studies</a>
-                <a href="#pricing">Investment</a>
-                <a href="#contact">Schedule a Call</a>
-                <a href="contact.html">Contact</a>
-                <a href="newsletter.html">Newsletter</a>
+                <a href="#results" class="parallax">Results</a>
+                <a href="#testimonials" class="parallax">Case Studies</a>
+                <a href="#pricing" class="parallax">Investment</a>
+                <a href="#contact" class="parallax">Schedule a Call</a>
+                <a href="contact.html" class="parallax">Contact</a>
+                <a href="newsletter.html" class="parallax">Newsletter</a>
             </div>
         </div>
     </nav>
 
     <section class="hero">
         <div class="container">
-            <h1>How We Generated <span class="highlight">$5M+ In Net Profit</span> For Course Creators Without Paid Ads, Sales Teams, or Traditional Course Launches</h1>
-            <p>Join the elite 1% of course creators who've discovered how to scale to 7-figures while working less</p>
-            <a href="schedule.html" class="btn btn-primary">Schedule Your Free Strategy Call →</a>
+            <h1 class="text-reveal">How We Generated <span class="highlight float-element">$5M+ In Net Profit</span> For Course Creators Without Paid Ads, Sales Teams, or Traditional Course Launches</h1>
+            <p class="text-reveal">Join the elite 1% of course creators who've discovered how to scale to 7-figures while working less</p>
+            <a href="schedule.html" class="btn btn-primary magnetic">Schedule Your Free Strategy Call →</a>
         </div>
     </section>
 
     <section class="results" id="results">
         <div class="container">
-            <h2 class="section-title">Client Results</h2>
+            <h2 class="section-title reveal-on-scroll">Client Results</h2>
             <div class="stat-grid">
-                <div class="stat-card">
-                    <div class="stat-number">$127M+</div>
+                <div class="stat-card reveal-on-scroll reveal-delay-1">
+                    <div class="stat-number float-element">$127M+</div>
                     <div class="stat-label">Revenue Generated</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">1,472</div>
+                <div class="stat-card reveal-on-scroll reveal-delay-2">
+                    <div class="stat-number float-element">1,472</div>
                     <div class="stat-label">Course Creators Helped</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">89%</div>
+                <div class="stat-card reveal-on-scroll reveal-delay-3">
+                    <div class="stat-number float-element">89%</div>
                     <div class="stat-label">Average Revenue Increase</div>
                 </div>
             </div>
@@ -1154,6 +1248,139 @@
                     }, 500);
                 }, 4500);
             }
+
+            // Scroll reveal animation
+            function revealOnScroll() {
+                const reveals = document.querySelectorAll('.reveal-on-scroll, .text-reveal');
+                reveals.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom >= 0);
+                    
+                    if (isVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+
+            // Parallax effect
+            function handleParallax(e) {
+                const parallaxElements = document.querySelectorAll('.parallax');
+                parallaxElements.forEach(element => {
+                    const speed = 0.05;
+                    const x = (window.innerWidth - e.pageX * speed) / 100;
+                    const y = (window.innerHeight - e.pageY * speed) / 100;
+                    element.style.transform = `translateX(${x}px) translateY(${y}px)`;
+                });
+            }
+
+            // Magnetic button effect
+            document.querySelectorAll('.magnetic').forEach(button => {
+                button.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    this.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translate(0, 0)';
+                });
+            });
+
+            // Initialize animations
+            revealOnScroll();
+            window.addEventListener('scroll', revealOnScroll);
+            document.addEventListener('mousemove', handleParallax);
+
+            // Add particle trail to cursor
+            let particles = [];
+            const particleCount = 15;
+
+            function createParticleTrail(e) {
+                const particle = document.createElement('div');
+                particle.className = 'cursor-particle';
+                particle.style.cssText = `
+                    position: fixed;
+                    pointer-events: none;
+                    width: 8px;
+                    height: 8px;
+                    background: rgba(255, 107, 0, 0.6);
+                    border-radius: 50%;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    transition: transform 0.6s ease, opacity 0.6s ease;
+                `;
+                document.body.appendChild(particle);
+
+                particles.push({
+                    element: particle,
+                    createdAt: Date.now()
+                });
+
+                setTimeout(() => {
+                    particle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px)`;
+                    particle.style.opacity = '0';
+                }, 50);
+
+                if (particles.length > particleCount) {
+                    const oldParticle = particles.shift();
+                    oldParticle.element.remove();
+                }
+            }
+
+            // Add smooth particle trail
+            let throttleTimer;
+            document.addEventListener('mousemove', (e) => {
+                if (!throttleTimer) {
+                    throttleTimer = setTimeout(() => {
+                        createParticleTrail(e);
+                        throttleTimer = null;
+                    }, 50);
+                }
+            });
+
+            // Enhanced hover effects for feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const angleX = (y - centerY) / 20;
+                    const angleY = (centerX - x) / 20;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                });
+            });
+
+            // Add ripple effect to buttons
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('div');
+                    ripple.className = 'ripple';
+                    this.appendChild(ripple);
+
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    ripple.style.left = `${x}px`;
+                    ripple.style.top = `${y}px`;
+
+                    setTimeout(() => ripple.remove(), 1000);
+                });
+            });
         };
     </script>
 </body>
