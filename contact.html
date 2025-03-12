@@ -31,14 +31,13 @@
 
         /* Navigation */
         nav {
-            background: rgba(0,0,0,0.95);
+            background: #000;
             padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .nav-content {
@@ -53,12 +52,6 @@
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .logo:hover {
-            color: #FF6B00;
         }
 
         .nav-links a {
@@ -70,27 +63,11 @@
             font-size: 14px;
             letter-spacing: 1px;
             opacity: 0.8;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: #FF6B00;
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
+            transition: opacity 0.3s ease;
         }
 
         .nav-links a:hover {
             opacity: 1;
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
         }
 
         /* Contact Hero Section */
@@ -623,14 +600,14 @@
 
     <nav>
         <div class="container nav-content">
-            <a href="index.html" class="logo">Acquisition.com</a>
+            <div class="logo parallax">Acquisition.com</div>
             <div class="nav-links">
-                <a href="index.html#results">Results</a>
-                <a href="index.html#testimonials">Case Studies</a>
-                <a href="index.html#pricing">Investment</a>
-                <a href="index.html#contact">Apply Now</a>
-                <a href="contact.html">Contact</a>
-                <a href="newsletter.html">Newsletter</a>
+                <a href="#results" class="parallax">Results</a>
+                <a href="#testimonials" class="parallax">Case Studies</a>
+                <a href="#pricing" class="parallax">Investment</a>
+                <a href="#contact" class="parallax">Schedule a Call</a>
+                <a href="contact.html" class="parallax">Contact</a>
+                <a href="newsletter.html" class="parallax">Newsletter</a>
             </div>
         </div>
     </nav>
