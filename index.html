@@ -1211,12 +1211,13 @@
 
             // Number animation function
             function animateNumber(element) {
-                const text = element.textContent;
-                const matches = text.match(/[\d,]+/);
+                const originalText = element.textContent;
+                const matches = originalText.match(/\$?([\d,]+)([^0-9]*)/);
                 if (!matches) return;
                 
-                const finalValue = parseInt(matches[0].replace(/,/g, ''));
-                const suffix = text.replace(matches[0], '');
+                const prefix = originalText.startsWith('$') ? '$' : '';
+                const finalValue = parseInt(matches[1].replace(/,/g, ''));
+                const suffix = matches[2] || '';
                 let startValue = 0;
                 const duration = 2000;
                 const increment = finalValue / (duration / 16);
@@ -1224,10 +1225,10 @@
                 function updateNumber() {
                     startValue += increment;
                     if (startValue < finalValue) {
-                        element.textContent = Math.floor(startValue).toLocaleString() + suffix;
+                        element.textContent = prefix + Math.floor(startValue).toLocaleString() + suffix;
                         requestAnimationFrame(updateNumber);
                     } else {
-                        element.textContent = finalValue.toLocaleString() + suffix;
+                        element.textContent = prefix + finalValue.toLocaleString() + suffix;
                     }
                 }
                 
