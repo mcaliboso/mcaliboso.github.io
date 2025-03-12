@@ -593,16 +593,20 @@
         /* Copy Success Message */
         .copy-success {
             display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
             background: rgba(255,107,0,0.9);
             color: white;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 8px;
             animation: successPop 0.5s ease;
-            z-index: 1000;
             box-shadow: 0 4px 12px rgba(255,107,0,0.2);
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .email-container {
+            position: relative;
         }
     </style>
 </head>
@@ -663,10 +667,15 @@
                         <p>15-30 minute consultation</p>
                     </div>
 
-                    <div class="contact-method" onclick="copyEmail()">
-                        <h3>Email Us</h3>
-                        <p>apply@acquisition.com</p>
-                        <p>We respond to all inquiries within 24 hours</p>
+                    <div class="email-container">
+                        <div class="copy-success">
+                            Email copied to clipboard!
+                        </div>
+                        <div class="contact-method" onclick="copyEmail()">
+                            <h3>Email Us</h3>
+                            <p>apply@acquisition.com</p>
+                            <p>We respond to all inquiries within 24 hours</p>
+                        </div>
                     </div>
                     
                     <div class="contact-method">
@@ -700,11 +709,6 @@
     <!-- Success Message -->
     <div class="success-message">
         Thanks for reaching out! We'll be in touch shortly.
-    </div>
-
-    <!-- Copy Success Message -->
-    <div class="copy-success">
-        Email copied to clipboard!
     </div>
 
     <script>
