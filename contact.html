@@ -398,6 +398,7 @@
             color: white;
             padding: 80px 0 30px;
             border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
         }
 
         .footer-grid {
@@ -590,6 +591,49 @@
         .email-container {
             position: relative;
         }
+
+        /* Live Chat Button */
+        .live-chat-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #FF6B00;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255,107,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .live-chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255,107,0,0.4);
+        }
+
+        .live-chat-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 200, 0, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out forwards;
+        }
     </style>
 </head>
 <body>
@@ -756,15 +800,6 @@
             });
         }
 
-        // Debug function
-        function debugHubSpot() {
-            console.log('Debugging HubSpot:');
-            console.log('- window.hbspt exists:', !!window.hbspt);
-            console.log('- form container exists:', !!document.getElementById('hubspot-form'));
-            console.log('- portal ID:', "242100136");
-            console.log('- form ID:', "622116ad-545d-4df6-8e0c-73cb54605aec");
-        }
-
         // Initialize form with retries
         function initForm(retries = 0) {
             console.log(`Attempting to initialize form (attempt ${retries + 1})`);
@@ -807,113 +842,36 @@
         // Start initialization when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, waiting for HubSpot...');
-            debugHubSpot();
             initForm();
         });
 
-        // Backup initialization
-        window.addEventListener('load', function() {
-            console.log('Window loaded, checking if form exists...');
-            if (!document.querySelector('.form-loaded')) {
-                console.log('Form not loaded yet, retrying...');
-                debugHubSpot();
-                initForm();
-            }
+        // Add scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.contact-method, .stat-item').forEach(el => {
+            observer.observe(el);
         });
 
-        window.onload = function() {
-            // Progress bar
-            window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.querySelector('.progress-bar').style.width = scrolled + '%';
-            });
-
-            // Live chat button click
-            document.querySelector('.live-chat-btn').addEventListener('click', () => {
-                // Initialize your chat solution here
-                alert('Chat feature coming soon!');
-            });
-
-            // Success message
-            function showSuccessMessage() {
-                const message = document.querySelector('.success-message');
-                message.style.display = 'block';
-                setTimeout(() => {
-                    message.style.display = 'none';
-                }, 5000);
-            }
-
-            // Animate elements on scroll
-            const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.contact-method, .stat-item');
-                elements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight) && (elementBottom >= 0);
-                    
-                    if (isVisible) {
-                        element.style.animation = 'slideIn 0.5s ease forwards';
-                    }
-                });
-            };
-
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // Initial check
-
-            // Enhanced scroll animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const handleIntersection = (entries, observer) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        const element = entry.target;
-                        const delay = element.dataset.staggerDelay || 0;
-                        
-                        element.style.setProperty('--stagger-delay', `${delay * 0.2}s`);
-                        element.classList.add('animated');
-                        
-                        if (!element.dataset.repeat) {
-                            observer.unobserve(element);
-                        }
-                    }
-                });
-            };
-
-            const observer = new IntersectionObserver(handleIntersection, observerOptions);
-
-            // Observe all elements that should animate
-            document.querySelectorAll('.animate-on-scroll').forEach((element, index) => {
-                element.dataset.staggerDelay = index;
-                observer.observe(element);
-            });
-
-            // Add animation classes to elements
-            document.querySelectorAll('.contact-method, .stat-item').forEach(
-                (element, index) => {
-                    element.classList.add('animate-on-scroll', 'stagger-animation');
-                }
-            );
-
-            // Add parallax to hero section
-            document.querySelector('.contact-hero').classList.add('parallax-section');
-
-            // Parallax effect
-            let parallaxSections = document.querySelectorAll('.parallax-section');
-            
-            window.addEventListener('scroll', () => {
-                parallaxSections.forEach(section => {
-                    const scrolled = window.pageYOffset;
-                    const rate = scrolled * -0.3;
-                    section.style.setProperty('--scroll-offset', `${rate}px`);
-                });
-            });
-        };
+        // Success message
+        function showSuccessMessage() {
+            const message = document.querySelector('.success-message');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000);
+        }
     </script>
 </body>
 </html> 
