@@ -1185,65 +1185,76 @@
                 el.style.display = 'flex';
             });
 
-            // Intersection Observer for scroll animations
-            const observerOptions = {
-                threshold: 0.2,
-                rootMargin: '0px'
-            };
-
+            // Intersection Observer for animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        // Animate numbers when they come into view
                         if (entry.target.classList.contains('stat-number')) {
                             animateNumber(entry.target);
                         }
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Only animate once
                     }
                 });
-            }, observerOptions);
+            }, {
+                threshold: 0.1
+            });
 
             // Observe all animated elements
-            document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .feature-card, .testimonial-card, .pricing-card, .stat-number').forEach(el => {
+            document.querySelectorAll('.fade-in-up, .stat-number').forEach(el => {
                 observer.observe(el);
             });
 
             // Number animation function
             function animateNumber(element) {
-                // For specific statistics, just display the value without animation
-                const exactValues = {
-                    '$127M+': true,
-                    '1,472': true,
-                    '89%': true
-                };
-                
                 const originalText = element.textContent;
-                if (exactValues[originalText]) {
-                    return; // Keep the original text without animation
+                
+                // Parse the number and any prefix/suffix
+                let number = '';
+                let prefix = '';
+                let suffix = '';
+                
+                // Handle currency format
+                if (originalText.startsWith('$')) {
+                    prefix = '$';
+                    number = originalText.slice(1);
+                } else {
+                    number = originalText;
                 }
                 
-                const matches = originalText.match(/\$?([\d,]+)([^0-9]*)/);
-                if (!matches) return;
+                // Handle suffix (M+, %, etc)
+                if (number.includes('M+')) {
+                    suffix = 'M+';
+                    number = number.replace('M+', '');
+                } else if (number.includes('%')) {
+                    suffix = '%';
+                    number = number.replace('%', '');
+                }
                 
-                const prefix = originalText.startsWith('$') ? '$' : '';
-                const finalValue = parseInt(matches[1].replace(/,/g, ''));
-                const suffix = matches[2] || '';
-                let startValue = 0;
-                const duration = 2000;
-                const increment = finalValue / (duration / 16);
+                // Remove commas and convert to number
+                const finalNumber = parseFloat(number.replace(/,/g, ''));
+                let currentNumber = 0;
+                const duration = 2000; // 2 seconds
+                const steps = 60;
+                const increment = finalNumber / steps;
+                let currentStep = 0;
                 
-                function updateNumber() {
-                    startValue += increment;
-                    if (startValue < finalValue) {
-                        element.textContent = prefix + Math.floor(startValue).toLocaleString() + suffix;
-                        requestAnimationFrame(updateNumber);
-                    } else {
-                        element.textContent = prefix + finalValue.toLocaleString() + suffix;
+                function updateDisplay() {
+                    currentStep++;
+                    currentNumber = Math.min(finalNumber, currentStep * increment);
+                    
+                    // Format the number with commas
+                    let formattedNumber = Math.floor(currentNumber).toLocaleString();
+                    
+                    // Combine all parts
+                    element.textContent = prefix + formattedNumber + suffix;
+                    
+                    if (currentStep < steps) {
+                        setTimeout(updateDisplay, duration / steps);
                     }
                 }
                 
-                updateNumber();
+                updateDisplay();
             }
 
             // Progress bar
