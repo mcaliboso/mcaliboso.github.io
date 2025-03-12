@@ -1211,7 +1211,18 @@
 
             // Number animation function
             function animateNumber(element) {
+                // For specific statistics, just display the value without animation
+                const exactValues = {
+                    '$127M+': true,
+                    '1,472': true,
+                    '89%': true
+                };
+                
                 const originalText = element.textContent;
+                if (exactValues[originalText]) {
+                    return; // Keep the original text without animation
+                }
+                
                 const matches = originalText.match(/\$?([\d,]+)([^0-9]*)/);
                 if (!matches) return;
                 
