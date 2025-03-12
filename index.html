@@ -467,20 +467,21 @@
             background: #000;
         }
 
-        .form-section {
+        .contact .form-wrapper {
             max-width: 600px;
             margin: 0 auto;
-            padding: 40px;
             background: rgba(17, 17, 17, 0.95);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,107,0,0.2);
             backdrop-filter: blur(20px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,107,0,0.2);
+            transition: all 0.3s ease;
             position: relative;
             z-index: 1;
-            transition: all 0.3s ease;
         }
 
-        .form-section:hover {
+        .contact .form-wrapper:hover {
             border-color: #FF6B00;
             box-shadow: 0 30px 60px rgba(255,107,0,0.2);
         }
@@ -488,6 +489,10 @@
         #hubspot-form {
             position: relative;
             z-index: 2;
+        }
+
+        #hubspot-form form {
+            margin: 0;
         }
 
         /* Footer */
@@ -1095,7 +1100,9 @@
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">Get Started</h2>
-            <div id="hubspot-form"></div>
+            <div class="form-wrapper">
+                <div id="hubspot-form"></div>
+            </div>
         </div>
     </section>
 
