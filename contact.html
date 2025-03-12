@@ -238,12 +238,28 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            text-decoration: none;
         }
 
-        .contact-method:hover {
-            transform: translateY(-5px);
-            background: rgba(255,107,0,0.1);
-            border-color: rgba(255,107,0,0.2);
+        .contact-method[onclick] {
+            cursor: pointer;
+        }
+
+        .contact-method[onclick]:after {
+            content: '→';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #FF6B00;
+            font-size: 24px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method[onclick]:hover:after {
+            opacity: 1;
+            right: 15px;
         }
 
         .contact-method h3 {
@@ -638,7 +654,7 @@
                         <p>Available for in-person strategy sessions</p>
                     </div>
                     
-                    <div class="contact-method">
+                    <div class="contact-method" onclick="window.location.href='schedule.html'">
                         <h3>Schedule a Call</h3>
                         <p>Book your free strategy session</p>
                         <p>15-30 minute consultation</p>
