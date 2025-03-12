@@ -1020,7 +1020,7 @@
             <h2 class="section-title fade-in-up">Client Results</h2>
             <div class="stat-grid">
                 <div class="stat-card fade-in-up delay-1">
-                    <div class="stat-number">$1M+</div>
+                    <div class="stat-number">$127M+</div>
                     <div class="stat-label">Revenue Generated</div>
                 </div>
                 <div class="stat-card fade-in-up delay-2">
@@ -1211,7 +1211,12 @@
 
             // Number animation function
             function animateNumber(element) {
-                const finalValue = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                const text = element.textContent;
+                const matches = text.match(/[\d,]+/);
+                if (!matches) return;
+                
+                const finalValue = parseInt(matches[0].replace(/,/g, ''));
+                const suffix = text.replace(matches[0], '');
                 let startValue = 0;
                 const duration = 2000;
                 const increment = finalValue / (duration / 16);
@@ -1219,10 +1224,10 @@
                 function updateNumber() {
                     startValue += increment;
                     if (startValue < finalValue) {
-                        element.textContent = Math.floor(startValue).toLocaleString() + (element.textContent.includes('+') ? '+' : '');
+                        element.textContent = Math.floor(startValue).toLocaleString() + suffix;
                         requestAnimationFrame(updateNumber);
                     } else {
-                        element.textContent = finalValue.toLocaleString() + (element.textContent.includes('+') ? '+' : '');
+                        element.textContent = finalValue.toLocaleString() + suffix;
                     }
                 }
                 
