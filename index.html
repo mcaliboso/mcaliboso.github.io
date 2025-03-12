@@ -797,96 +797,137 @@
             }
         }
 
-        /* New Dynamic Animations */
+        /* Remove Dynamic Animations */
         .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+            transform: none;
+            transition: none;
         }
 
         .reveal-on-scroll.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
         }
 
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-1, .reveal-delay-2, .reveal-delay-3 { 
+            transition-delay: 0s; 
+        }
 
-        /* Parallax Elements */
+        /* Remove Parallax Elements */
         .parallax {
-            transition: transform 0.3s cubic-bezier(0.2, 0, 0.3, 1);
-            will-change: transform;
+            transition: none;
+            transform: none !important;
         }
 
-        /* Interactive Card Hover */
+        /* Reset Feature Card Hover */
         .feature-card {
-            transition: transform 0.5s cubic-bezier(0.2, 0, 0.3, 1), box-shadow 0.5s ease;
-            perspective: 1000px;
+            transition: transform 0.3s ease;
+            perspective: none;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(255,107,0,0.2);
         }
 
-        /* Magnetic Button Effect */
+        /* Reset Button Effects */
         .btn-primary {
-            position: relative;
-            transition: transform 0.3s cubic-bezier(0.2, 0, 0.3, 1);
-            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+            transform: none !important;
         }
 
-        /* Glowing Border Animation */
-        .pricing-card {
-            position: relative;
-            overflow: hidden;
-        }
-
+        /* Reset Pricing Card Effects */
         .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #FF6B00, #FF8533, #FF6B00);
-            background-size: 200% 200%;
-            animation: gradientBorder 3s linear infinite;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: none;
         }
 
-        .pricing-card:hover::before {
-            opacity: 1;
-        }
-
-        @keyframes gradientBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Floating Elements Animation */
+        /* Remove Floating Animation */
         .float-element {
-            animation: floating 6s ease-in-out infinite;
+            animation: none;
         }
 
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* Text Reveal Animation */
+        /* Remove Text Reveal Animation */
         .text-reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.2, 0, 0.3, 1);
+            opacity: 1;
+            transform: none;
+            transition: none;
         }
 
         .text-reveal.active {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Add animation delays for staggered effects */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* Enhance existing animations */
+        .feature-card, .testimonial-card, .pricing-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .feature-card.visible, .testimonial-card.visible, .pricing-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-number.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -912,26 +953,26 @@
 
     <section class="hero">
         <div class="container">
-            <h1 class="text-reveal">How We Generated <span class="highlight float-element">$5M+ In Net Profit</span> For Course Creators Without Paid Ads, Sales Teams, or Traditional Course Launches</h1>
-            <p class="text-reveal">Join the elite 1% of course creators who've discovered how to scale to 7-figures while working less</p>
-            <a href="schedule.html" class="btn btn-primary magnetic">Schedule Your Free Strategy Call →</a>
+            <h1 class="fade-in-up">How We Generated <span class="highlight float-element">$5M+ In Net Profit</span> For Course Creators Without Paid Ads, Sales Teams, or Traditional Course Launches</h1>
+            <p class="fade-in-up delay-1">Join the elite 1% of course creators who've discovered how to scale to 7-figures while working less</p>
+            <a href="schedule.html" class="btn btn-primary fade-in-up delay-2">Schedule Your Free Strategy Call →</a>
         </div>
     </section>
 
     <section class="results" id="results">
         <div class="container">
-            <h2 class="section-title reveal-on-scroll">Client Results</h2>
+            <h2 class="section-title fade-in-up">Client Results</h2>
             <div class="stat-grid">
-                <div class="stat-card reveal-on-scroll reveal-delay-1">
-                    <div class="stat-number float-element">$127M+</div>
+                <div class="stat-card fade-in-up delay-1">
+                    <div class="stat-number">$127M+</div>
                     <div class="stat-label">Revenue Generated</div>
                 </div>
-                <div class="stat-card reveal-on-scroll reveal-delay-2">
-                    <div class="stat-number float-element">1,472</div>
+                <div class="stat-card fade-in-up delay-2">
+                    <div class="stat-number">1,472</div>
                     <div class="stat-label">Course Creators Helped</div>
                 </div>
-                <div class="stat-card reveal-on-scroll reveal-delay-3">
-                    <div class="stat-number float-element">89%</div>
+                <div class="stat-card fade-in-up delay-3">
+                    <div class="stat-number">89%</div>
                     <div class="stat-label">Average Revenue Increase</div>
                 </div>
             </div>
@@ -940,17 +981,17 @@
 
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">The System</h2>
+            <h2 class="section-title fade-in-up">The System</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in-left delay-1">
                     <h3>High-Ticket Offer Creation</h3>
                     <p>Transform your existing course into a premium high-ticket offer that sells itself without constant marketing.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in-up delay-2">
                     <h3>Automated Sales System</h3>
                     <p>Our proprietary system closes sales on autopilot, eliminating the need for a sales team or constant content creation.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card fade-in-right delay-3">
                     <h3>Scale Without Ads</h3>
                     <p>Leverage organic reach and strategic partnerships to scale your course business without spending on paid advertising.</p>
                 </div>
@@ -960,15 +1001,15 @@
 
     <section class="testimonials" id="testimonials">
         <div class="container">
-            <h2 class="section-title">Case Studies</h2>
+            <h2 class="section-title fade-in-up">Case Studies</h2>
             <div class="testimonial-grid">
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in-left delay-1">
                     <img src="https://i.pravatar.cc/150?img=1" alt="Sarah Johnson">
                     <h3>Sarah Johnson</h3>
                     <div class="position">Fitness Course Creator</div>
                     <p>"Went from $23k/month to $157k/month in 90 days using their system. No ads, no team, just pure leverage."</p>
                 </div>
-                <div class="testimonial-card">
+                <div class="testimonial-card fade-in-right delay-2">
                     <img src="https://i.pravatar.cc/150?img=2" alt="Mark Thompson">
                     <h3>Mark Thompson</h3>
                     <div class="position">Business Coach</div>
@@ -980,11 +1021,11 @@
 
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2 class="section-title">Investment Options</h2>
+            <h2 class="section-title fade-in-up">Investment Options</h2>
             <div class="pricing-grid">
-                <div class="pricing-card">
+                <div class="pricing-card fade-in-left delay-1">
                     <h3>Implementation Program</h3>
-                    <div class="price">$25,000</div>
+                    <div class="price scale-in delay-2">$25,000</div>
                     <div class="price-label">One-Time Investment</div>
                     <ul>
                         <li>Complete System Implementation</li>
@@ -993,11 +1034,11 @@
                         <li>1-on-1 Strategy Calls</li>
                         <li>Lifetime Access to Updates</li>
                     </ul>
-                    <a href="schedule.html" class="btn btn-primary">Schedule a Call</a>
+                    <a href="schedule.html" class="btn btn-primary fade-in-up delay-3">Schedule a Call</a>
                 </div>
-                <div class="pricing-card">
+                <div class="pricing-card fade-in-right delay-2">
                     <h3>Partnership Program</h3>
-                    <div class="price">Custom</div>
+                    <div class="price scale-in delay-3">Custom</div>
                     <div class="price-label">Revenue Share</div>
                     <ul>
                         <li>Full Business Partnership</li>
@@ -1006,7 +1047,7 @@
                         <li>Scaling & Growth Strategy</li>
                         <li>Profit-Sharing Model</li>
                     </ul>
-                    <a href="schedule.html" class="btn btn-secondary">Schedule Call</a>
+                    <a href="schedule.html" class="btn btn-secondary fade-in-up delay-4">Schedule Call</a>
                 </div>
             </div>
         </div>
@@ -1091,39 +1132,57 @@
                 el.style.display = 'flex';
             });
 
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Animate numbers when they come into view
+                        if (entry.target.classList.contains('stat-number')) {
+                            animateNumber(entry.target);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all animated elements
+            document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .feature-card, .testimonial-card, .pricing-card, .stat-number').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Number animation function
+            function animateNumber(element) {
+                const finalValue = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+                let startValue = 0;
+                const duration = 2000;
+                const increment = finalValue / (duration / 16);
+                
+                function updateNumber() {
+                    startValue += increment;
+                    if (startValue < finalValue) {
+                        element.textContent = Math.floor(startValue).toLocaleString() + (element.textContent.includes('+') ? '+' : '');
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        element.textContent = finalValue.toLocaleString() + (element.textContent.includes('+') ? '+' : '');
+                    }
+                }
+                
+                updateNumber();
+            }
+
             // Progress bar
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = (winScroll / height) * 100;
                 document.querySelector('.progress-bar').style.width = scrolled + '%';
-
-                // Show/hide floating CTA based on scroll position
-                const floatingCta = document.querySelector('.floating-cta');
-                if (winScroll > 500) {
-                    floatingCta.style.display = 'block';
-                } else {
-                    floatingCta.style.display = 'none';
-                }
             });
-
-            // Animate elements on scroll
-            const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .stat-card');
-                elements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight) && (elementBottom >= 0);
-                    
-                    if (isVisible && !element.classList.contains('animated')) {
-                        element.style.animation = 'slideIn 0.5s ease forwards';
-                        element.classList.add('animated');
-                    }
-                });
-            };
-
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // Initial check
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1136,249 +1195,6 @@
                             block: 'start'
                         });
                     }
-                });
-            });
-
-            // Enhanced scroll animations
-            const cardObserverOptions = {
-                threshold: 0.1,
-                rootMargin: '0px'
-            };
-
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                        
-                        if (entry.target.classList.contains('stat-number')) {
-                            animateNumber(entry.target);
-                        }
-                    }
-                });
-            }, cardObserverOptions);
-
-            // Animate numbers
-            function animateNumber(element) {
-                const final = parseInt(element.textContent.replace(/[^0-9]/g, ''));
-                let current = 0;
-                const duration = 2000; // 2 seconds
-                const increment = final / (duration / 16); // 60fps
-
-                const animate = () => {
-                    current += increment;
-                    if (current < final) {
-                        element.textContent = Math.round(current).toLocaleString() + (element.textContent.includes('+') ? '+' : '');
-                        requestAnimationFrame(animate);
-                    } else {
-                        element.textContent = final.toLocaleString() + (element.textContent.includes('+') ? '+' : '');
-                    }
-                };
-
-                animate();
-            }
-
-            // Observe elements for animation
-            document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .stat-number').forEach(el => {
-                cardObserver.observe(el);
-            });
-
-            // Add particle effects
-            function createParticle(x, y) {
-                const particle = document.createElement('div');
-                particle.style.cssText = `
-                    position: absolute;
-                    width: 4px;
-                    height: 4px;
-                    background: #FF6B00;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 1000;
-                `;
-                document.body.appendChild(particle);
-
-                const animation = particle.animate([
-                    {
-                        transform: `translate(${x}px, ${y}px)`,
-                        opacity: 1
-                    },
-                    {
-                        transform: `translate(${x + (Math.random() - 0.5) * 200}px, ${y - 200}px)`,
-                        opacity: 0
-                    }
-                ], {
-                    duration: 1000,
-                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                });
-
-                animation.onfinish = () => particle.remove();
-            }
-
-            // Add particle effects on button hover
-            document.querySelectorAll('.btn-primary').forEach(btn => {
-                btn.addEventListener('mouseenter', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    for(let i = 0; i < 5; i++) {
-                        setTimeout(() => {
-                            createParticle(rect.left + rect.width / 2, rect.bottom);
-                        }, i * 100);
-                    }
-                });
-            });
-
-            // Enhanced success message
-            function showSuccessMessage() {
-                const message = document.querySelector('.success-message');
-                message.style.display = 'block';
-                message.style.animation = 'slideIn 0.5s ease-out forwards';
-                
-                // Create celebration particles
-                for(let i = 0; i < 10; i++) {
-                    setTimeout(() => {
-                        createParticle(
-                            window.innerWidth - 100,
-                            50 + Math.random() * 50
-                        );
-                    }, i * 100);
-                }
-
-                setTimeout(() => {
-                    message.style.animation = 'slideIn 0.5s ease-out reverse forwards';
-                    setTimeout(() => {
-                        message.style.display = 'none';
-                    }, 500);
-                }, 4500);
-            }
-
-            // Scroll reveal animation
-            function revealOnScroll() {
-                const reveals = document.querySelectorAll('.reveal-on-scroll, .text-reveal');
-                reveals.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom >= 0);
-                    
-                    if (isVisible) {
-                        element.classList.add('active');
-                    }
-                });
-            }
-
-            // Parallax effect
-            function handleParallax(e) {
-                const parallaxElements = document.querySelectorAll('.parallax');
-                parallaxElements.forEach(element => {
-                    const speed = 0.05;
-                    const x = (window.innerWidth - e.pageX * speed) / 100;
-                    const y = (window.innerHeight - e.pageY * speed) / 100;
-                    element.style.transform = `translateX(${x}px) translateY(${y}px)`;
-                });
-            }
-
-            // Magnetic button effect
-            document.querySelectorAll('.magnetic').forEach(button => {
-                button.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    this.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-                });
-
-                button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translate(0, 0)';
-                });
-            });
-
-            // Initialize animations
-            revealOnScroll();
-            window.addEventListener('scroll', revealOnScroll);
-            document.addEventListener('mousemove', handleParallax);
-
-            // Add particle trail to cursor
-            let particles = [];
-            const particleCount = 15;
-
-            function createParticleTrail(e) {
-                const particle = document.createElement('div');
-                particle.className = 'cursor-particle';
-                particle.style.cssText = `
-                    position: fixed;
-                    pointer-events: none;
-                    width: 8px;
-                    height: 8px;
-                    background: rgba(255, 107, 0, 0.6);
-                    border-radius: 50%;
-                    left: ${e.clientX}px;
-                    top: ${e.clientY}px;
-                    transition: transform 0.6s ease, opacity 0.6s ease;
-                `;
-                document.body.appendChild(particle);
-
-                particles.push({
-                    element: particle,
-                    createdAt: Date.now()
-                });
-
-                setTimeout(() => {
-                    particle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px)`;
-                    particle.style.opacity = '0';
-                }, 50);
-
-                if (particles.length > particleCount) {
-                    const oldParticle = particles.shift();
-                    oldParticle.element.remove();
-                }
-            }
-
-            // Add smooth particle trail
-            let throttleTimer;
-            document.addEventListener('mousemove', (e) => {
-                if (!throttleTimer) {
-                    throttleTimer = setTimeout(() => {
-                        createParticleTrail(e);
-                        throttleTimer = null;
-                    }, 50);
-                }
-            });
-
-            // Enhanced hover effects for feature cards
-            document.querySelectorAll('.feature-card').forEach(card => {
-                card.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const angleX = (y - centerY) / 20;
-                    const angleY = (centerX - x) / 20;
-                    
-                    this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                });
-            });
-
-            // Add ripple effect to buttons
-            document.querySelectorAll('.btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('div');
-                    ripple.className = 'ripple';
-                    this.appendChild(ripple);
-
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    ripple.style.width = ripple.style.height = `${size}px`;
-                    
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    ripple.style.left = `${x}px`;
-                    ripple.style.top = `${y}px`;
-
-                    setTimeout(() => ripple.remove(), 1000);
                 });
             });
         };
